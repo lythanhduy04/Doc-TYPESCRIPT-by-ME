@@ -64,14 +64,18 @@ class QuanLySinhVien {
     addSV(val) {
         return this.sv.push(val);
     }
+    deleteElement(id) {
+        return (this.sv = this.sv.filter((items) => items.id !== id));
+    }
 }
 let dssv = [
-    { name: "Duy", score: 30 },
-    { name: "Cao", score: 30 },
-    { name: "Sang", score: 30 },
-    { name: "Bin", score: 30 },
+    { name: "Duy", score: 30, id: 1 },
+    { name: "Cao", score: 30, id: 2 },
+    { name: "Sang", score: 30, id: 3 },
+    { name: "Bin", score: 30, id: 4 },
 ];
 const quanLySinhVien = new QuanLySinhVien(dssv);
-quanLySinhVien.addSV({ name: "Them", score: 56 });
+quanLySinhVien.addSV({ name: "Them", score: 56, id: 5 });
 console.log(quanLySinhVien.loadOne());
 console.log(quanLySinhVien.loadAll());
+console.log(quanLySinhVien.deleteElement(2));

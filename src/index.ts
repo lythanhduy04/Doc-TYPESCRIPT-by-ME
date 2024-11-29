@@ -94,12 +94,16 @@ function randomCollectionItems<T>(val: Collection<T>): T {
 //27 Generic classes
 // viết chương trình quản lí gồm hiển thị một sv bất kì, hiển thị tất cả sinh viên và thêm một sinh viên
 
-interface SinhVien {
+// 28 Generic Constraints
+// ép kiểu cho generic
+interface SinhVien extends HasId {
   name: string;
   score: number;
 }
-
-class QuanLySinhVien<T> {
+type HasId = {
+  id: number;
+};
+class QuanLySinhVien<T extends HasId> {
   constructor(private sv: T[]) {}
 
   loadOne(): T {
@@ -112,16 +116,20 @@ class QuanLySinhVien<T> {
   addSV(val: T) {
     return this.sv.push(val);
   }
+  deleteElement(id: number) {
+    return (this.sv = this.sv.filter((items) => items.id !== id));
+  }
 }
 
 let dssv: SinhVien[] = [
-  { name: "Duy", score: 30 },
-  { name: "Cao", score: 30 },
-  { name: "Sang", score: 30 },
-  { name: "Bin", score: 30 },
+  { name: "Duy", score: 30, id: 1 },
+  { name: "Cao", score: 30, id: 2 },
+  { name: "Sang", score: 30, id: 3 },
+  { name: "Bin", score: 30, id: 4 },
 ];
 
 const quanLySinhVien = new QuanLySinhVien<SinhVien>(dssv);
-quanLySinhVien.addSV({ name: "Them", score: 56 });
+quanLySinhVien.addSV({ name: "Them", score: 56, id: 5 });
 console.log(quanLySinhVien.loadOne());
 console.log(quanLySinhVien.loadAll());
+console.log(quanLySinhVien.deleteElement(2));
